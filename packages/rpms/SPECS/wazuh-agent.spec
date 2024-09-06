@@ -1,8 +1,5 @@
-%if %{_debugenabled} == yes
-  %global _enable_debug_package 0
-  %global debug_package %{nil}
-  %global __os_install_post %{nil}
-  %define __strip /bin/true
+%if !(0%{?el} >= 6 || 0%{?rhel} >= 6)
+%global debug_package %{nil}
 %endif
 
 %if %{_isstage} == no
@@ -40,6 +37,18 @@ ExclusiveOS: linux
 Wazuh helps you to gain security visibility into your infrastructure by monitoring
 hosts at an operating system and application level. It provides the following capabilities:
 log analysis, file integrity monitoring, intrusions detection and policy and compliance monitoring
+
+%if 0%{?el} >= 6 || 0%{?rhel} >= 6
+# Build debuginfo package
+%if %{_arch} != ppc64le
+%debug_package
+%endif
+%package wazuh-agent-debuginfo
+Summary: Debug information for package %{name}.
+%description wazuh-agent-debuginfo
+This package provides debug information for package %{name}.
+%endif
+
 
 %prep
 %setup -q
@@ -194,6 +203,11 @@ install -m 0640 src/init/*.sh ${RPM_BUILD_ROOT}%{_localstatedir}/packages_files/
 # Add installation scripts
 cp src/VERSION ${RPM_BUILD_ROOT}%{_localstatedir}/packages_files/agent_installation_scripts/src/
 cp src/REVISION ${RPM_BUILD_ROOT}%{_localstatedir}/packages_files/agent_installation_scripts/src/
+
+%if 0%{?el} >= 6 || 0%{?rhel} >= 6
+%{_rpmconfigdir}/find-debuginfo.sh
+%endif
+
 
 exit 0
 
