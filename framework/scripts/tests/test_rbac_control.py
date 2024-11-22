@@ -50,8 +50,12 @@ async def test_restore_default_passwords(forward_mock: AsyncMock, safe_load_mock
     with patch("getpass.getpass", return_value=user_input):
         await rbac_control.restore_default_passwords(Arguments())
         if user_input != "":
-            forward_mock.assert_called_with(security.update_user, f_kwargs={'user_id': '1', 'password': user_input},
-                                            request_type="local_master")
+            forward_mock.assert_called_with(
+                security.update_user,
+                f_kwargs={'user_id': '1', 'password': user_input},
+                request_type="local_master",
+                is_async=True
+            )
             assert "testing_user" in print_mock.call_args[0][0]
             assert "UPDATED" in print_mock.call_args[0][0]
         else:

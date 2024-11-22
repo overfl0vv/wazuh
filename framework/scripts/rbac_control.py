@@ -39,9 +39,12 @@ async def restore_default_passwords(script_args):
         if new_password == "":
             continue
 
-        response = await cluster_utils.forward_function(update_user, f_kwargs={'user_id': str(user_id + 1),
-                                                                               'password': new_password},
-                                                        request_type="local_master")
+        response = await cluster_utils.forward_function(
+            update_user,
+            f_kwargs={'user_id': str(user_id + 1), 'password': new_password},
+            request_type="local_master",
+            is_async=True
+        )
 
         results[username] = f'FAILED | {str(response)}' if isinstance(response, Exception) else 'UPDATED'
 
