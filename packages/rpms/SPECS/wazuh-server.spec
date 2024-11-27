@@ -77,6 +77,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_initrddir}
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}tmp/
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}run/wazuh-server
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}var/lib/wazuh-server
+mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}var/lib/wazuh-server/keystore
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}usr/bin
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}var/log
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}usr/share/wazuh-server
@@ -224,6 +225,7 @@ rm -fr %{buildroot}
 %dir %attr(750, root, wazuh) %{_localstatedir}run/wazuh-server
 %dir %attr(750, root, wazuh) %{_localstatedir}var/lib/wazuh-server
 %dir %attr(750, root, wazuh) %{_localstatedir}var/lib/wazuh-server/vd
+%dir %attr(750, root, wazuh) %{_localstatedir}var/lib/wazuh-server/keystore
 %dir %attr(750, root, wazuh) %{_localstatedir}var/lib/wazuh-server/engine
 %dir %attr(750, root, wazuh) %{_localstatedir}var/lib/wazuh-server/engine/tzdb
 %dir %attr(750, root, wazuh) %{_localstatedir}var/log/wazuh-server
