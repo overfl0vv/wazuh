@@ -236,8 +236,6 @@ int main(int argc, char* argv[])
             IndexerConnectorOptions icConfig {};
             icConfig.name = confManager.get<std::string>(conf::key::INDEXER_INDEX);
             icConfig.hosts = confManager.get<std::vector<std::string>>(conf::key::INDEXER_HOST);
-            icConfig.username = confManager.get<std::string>(conf::key::INDEXER_USER);
-            icConfig.password = confManager.get<std::string>(conf::key::INDEXER_PASSWORD);
             icConfig.sslOptions.cacert = confManager.get<std::vector<std::string>>(conf::key::INDEXER_SSL_CA_LIST);
             icConfig.sslOptions.cert = confManager.get<std::string>(conf::key::INDEXER_SSL_CERTIFICATE);
             icConfig.sslOptions.key = confManager.get<std::string>(conf::key::INDEXER_SSL_KEY);
