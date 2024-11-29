@@ -115,6 +115,8 @@ def start_daemon(background_mode: bool, name: str, args: List[str]):
             pid = pyDaemonModule.get_parent_pid(name)
             if pid is None:
                 raise Exception('failed during the execution')
+            else:
+                main_logger.info(f'Started {name} (pid: {pid})')
 
     except subprocess.TimeoutExpired:
         # The command was executed without errors
